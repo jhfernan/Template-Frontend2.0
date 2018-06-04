@@ -6,8 +6,8 @@
 				<div class="card">
 					<div class="card-body">
 						<form @submit.prevent="login">
-							<div class="alert alert-danger" role="alert" v-if="error">
-								{{ error }}
+							<div class="alert alert-danger" role="alert" v-if="err">
+								{{ err }}
 							</div>
 							<div class="form-group">
 								<label>Username</label>
@@ -30,7 +30,7 @@
 export default {
 	data () {
 		return {
-			error: null,
+			err: null,
 			form: {},
 		}
 	},
@@ -46,8 +46,7 @@ export default {
 				await this.$store.dispatch('login', this.form)
 				this.$router.push('/home')
 			} catch (err) {
-				console.log(err)
-				this.error = 'Error ' + err.response.status + ': ' + err.response.data
+				this.err = 'Error ' + err.response.status + ': ' + err.response.data
 			}
 		}
 	}
