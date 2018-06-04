@@ -19,6 +19,7 @@ module.exports = {
 	loading: { color: '#3B8070' },
 	modules: [
 		'@nuxtjs/axios',
+		['cookie-universal-nuxt', { alias: 'cookies' }],
 	],
 	axios: {
 		baseURL: 'http://localhost:8000',

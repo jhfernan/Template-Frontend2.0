@@ -8,7 +8,7 @@
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav">
 					<nuxt-link class="nav-item nav-link" to="/login" v-if="!$store.state.user" exact>Log In</nuxt-link>
-					<nuxt-link class="nav-item nav-link" to="/home/secret" v-if="$store.state.user" exact>Dat Secret Page</nuxt-link>
+					<nuxt-link class="nav-item nav-link" to="/home/secret" v-if="$store.state.user" exact>The Secret Page</nuxt-link>
 					<p class="nav-item nav-link mb-0" v-if="$store.state.user" @click="logout">Log Out</p>
 				</div>
 			</div>

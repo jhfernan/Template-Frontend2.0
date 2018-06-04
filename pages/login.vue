@@ -49,7 +49,8 @@ export default {
 				this.err = 'Error ' + err.response.status + ': ' + err.response.data
 			}
 		}
-	}
+	},
+	middleware: 'loggedIn',
 }
 </script>
 

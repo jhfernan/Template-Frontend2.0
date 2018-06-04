@@ -1,5 +1,3 @@
-import Cookie from 'cookie'
-import Cookies from 'js-cookie'
 
 export const state = () => ({
 	user: null,
@@ -11,59 +9,37 @@ export const mutations = {
 	},
 }
 
-export const actions = {
-	async nuxtServerInit ({ dispatch }, { req }) {
-		if (req.headers.cookie) {
-			let token = Cookie.parse(req.headers.cookie).auth
-			if (token) {
-				await dispatch('setToken', token)
-				dispatch('fetch', token)
-			}
-		}
-	},
+export const getters = {
+	loggedIn (state) {
+		return Boolean(state.user)
+	}
+}
 
-	async fetch ({ dispatch }, token) {
-		try {
-			let data = await this.$axios.$get('/api/authenticate')
-			if (data.user) {
-				await dispatch('set', { user: data, token: null })
-			} else {
-				await dispatch('reset')
+export const actions = {
+	async nuxtServerInit ({ commit }, { app, req }) {
+		if (req.headers.cookie) {
+			let token = app.$cookies.get('auth')
+			if (token) {
+				this.$axios.defaults.headers.common['Authorization'] = token
+				try {
+					let user = await this.$axios.$get('/api/authenticate')
+					commit('set_user', user)
+				} catch (err) {
+					app.$cookies.remove('auth')
+				}
 			}
-		} catch (err) {
-			await dispatch('reset')
 		}
 	},
 
 	// Login
-	async login ({ dispatch }, fields) {
+	async login ({ commit, dispatch }, fields) {
 		try {
 			let data = await this.$axios.$post('/api/authenticate', fields)
-			await dispatch('set', data)
+			await dispatch('setToken', data.token)
+			commit('set_user', data.user)
 		} catch (err) {
 			throw err
 		}
-	},
-
-	// Reset
-	async reset ({ commit }) {
-		commit('set_user', null)
-		delete this.$axios.defaults.headers.common['Authorization']
-		Cookies.remove('auth')
-	},
-
-	// Set
-	async set ({ commit, dispatch }, data) {
-		commit('set_user', data.user)
-		if (data.token) {
-			dispatch('setAuth', data.token)
-			Cookies.set('auth', data.token)
-		}
-	},
-
-	// Set the token
-	async setAuth ({ commit }, token) {
-		this.$axios.defaults.headers.common['Authorization'] = token
 	},
 
 	// Logout
@@ -73,6 +49,21 @@ export const actions = {
 		} catch (err) {
 			console.error('Error while logging out', err)
 		}
-	}
+	},
+
+	// Reset
+	async reset ({ commit }) {
+		commit('set_user', null)
+		delete this.$axios.defaults.headers.common['Authorization']
+		this.$cookies.remove('auth')
+	},
+
+	// Set Token
+	async setToken({ commit }, token) {
+		this.$axios.defaults.headers.common['Authorization'] = token
+		if (process.browser) {
+			this.$cookies.set('auth', token)
+		}
+	},
 
 }
