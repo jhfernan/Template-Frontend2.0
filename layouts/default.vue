@@ -1,8 +1,10 @@
 <template>
-	<div>
+	<v-app>
 		<navbar />
-		<nuxt/>
-	</div>
+		<v-content>
+			<nuxt/>
+		</v-content>
+	</v-app>
 </template>
 
 <script>

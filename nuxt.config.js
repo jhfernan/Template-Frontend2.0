@@ -1,3 +1,4 @@
+
 module.exports = {
 	// Headers of the page
 	head: {
@@ -9,12 +10,12 @@ module.exports = {
 		],
 		link: [
 			// { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-			{ rel: 'stylesheet', href: 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css', integrity: 'sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4', crossorigin: 'anonymous' },
-			{ src: 'https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity: 'sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo', crossorigin: 'anonymous' },
-			{ src: 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js', integrity: 'sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ', crossorigin: 'anonymous' },
-			{ src: 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js', integrity: 'sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm', crossorigin: 'anonymous' },
+			{ rel: 'stylesheet', type: 'text/css', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' },
 		]
 	},
+	css: [
+		'@/assets/style/app.styl',
+	],
 	// Customize the progress bar color
 	loading: { color: '#3B8070' },
 	modules: [
@@ -29,13 +30,17 @@ module.exports = {
 
 	plugins: [
 		'~/plugins/axios',
+		'~/plugins/vuetify',
 	],
 
 	router: { linkExactActiveClass: 'active', },
 	// Build configuration
 	build: {
+		vendor: [
+			'~/plugins/vuetify.js'
+		],
 		// Run ESLint on save
-		extend (config, { isDev, isClient }) {
+		extend (config, { isDev, isClient, isServer }) {
 			if (isDev && isClient) {
 				config.module.rules.push({
 					enforce: 'pre',

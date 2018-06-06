@@ -1,29 +1,30 @@
 <template>
-	<section class="container mt-5">
-		<h1 class="text-center mb-3">Log In</h1>
-		<div class="row justify-content-center">
-			<div class="col-xs-10 col-md-4">
-				<div class="card">
-					<div class="card-body">
-						<form @submit.prevent="login">
-							<div class="alert alert-danger" role="alert" v-if="err">
-								{{ err }}
-							</div>
-							<div class="form-group">
-								<label>Username</label>
-								<input type="text" class="form-control" placeholder="Username" v-model="form.username">
-							</div>
-							<div class="form-group">
-								<label>Password</label>
-								<input type="password" class="form-control" placeholder="Password" v-model="form.password">
-							</div>
-							<button type="submit" class="btn btn-primary">Submit</button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+	<v-container fluid fill-height>
+		<v-layout align-center justify-center>
+			<v-flex xs12 sm8 md6 lg4>
+				<v-card class="elevation-12">
+					<v-toolbar color="primary" dark dense>
+						<v-toolbar-title>Login form</v-toolbar-title>
+					</v-toolbar>
+					<v-card-text>
+						<v-alert class="mb-3" :value="err" type="error">
+							{{ err }}
+						</v-alert>
+						<v-form @submit.prevent="login">
+							<v-text-field prepend-icon="person" label="Username" type="text" v-model="form.username"></v-text-field>
+							<v-text-field prepend-icon="lock" label="Password" type="password" v-model="form.password"></v-text-field>
+						</v-form>
+					</v-card-text>
+					<v-card-actions>
+						<v-spacer></v-spacer>
+						<v-btn type="submit" color="primary" @click="login">Login</v-btn>
+					</v-card-actions>
+				</v-card>
+
+			</v-flex>
+		</v-layout>
+	</v-container>
+
 </template>
 
 <script>
@@ -36,7 +37,6 @@ export default {
 	},
 	head () {
 		return {
-			bodyAttrs: { class: 'login' },
 			title: 'Log In',
 		}
 	},
@@ -53,9 +53,3 @@ export default {
 	middleware: 'loggedIn',
 }
 </script>
-
-<style>
-html body.login {
-	background-color: #F2F2F2;
-}
-</style>

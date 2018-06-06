@@ -1,26 +1,40 @@
 <template>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-		<div class="container">
-			<nuxt-link class="navbar-brand" to="/" exact>Front End Testing</nuxt-link>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<div class="navbar-nav">
-					<nuxt-link class="nav-item nav-link" to="/login" v-if="!$store.state.user" exact>Log In</nuxt-link>
-					<nuxt-link class="nav-item nav-link" to="/home/secret" v-if="$store.state.user" exact>The Secret Page</nuxt-link>
-					<p class="nav-item nav-link mb-0" v-if="$store.state.user" @click="logout">Log Out</p>
-				</div>
-			</div>
-		</div>
-	</nav>
+	<div>
+		<v-toolbar app class="px-3" color="primary" dark :clipped-right="clipped" fixed>
+			<v-toolbar-title>Front End Testing</v-toolbar-title>
+			<v-spacer></v-spacer>
+			<v-btn class="hidden-md-and-down" exact flat :key="i" nuxt router :to="item.to" v-for="(item, i) in items">
+				{{ item.name }}
+			</v-btn>
+			<v-btn class="hidden-md-and-down" exact flat nuxt router to="/login" v-if="!$store.state.user">Log In</v-btn>
+			<v-btn class="hidden-md-and-down" flat @click="logout" v-else>Log Out</v-btn>
+			<v-toolbar-side-icon class="hidden-lg-and-up" @click.native.stop="drawer = !drawer" />
+		</v-toolbar>
+		<v-navigation-drawer app class="hidden-lg-and-up" :clipped="clipped" fixed right v-model="drawer">
+			<v-list>
+				<v-list-tile exact :key="i" nuxt router :to="item.to" v-for="(item, i) in items">
+					<v-list-tile-title>Home</v-list-tile-title>
+				</v-list-tile>
+				<v-list-tile exact nuxt router to="/login" v-if="!$store.state.user">
+					<v-list-tile-title>Login</v-list-tile-title>
+				</v-list-tile>
+				<v-list-tile @click="logout" v-else>
+					<v-list-tile-title>Logout</v-list-tile-title>
+				</v-list-tile>
+			</v-list>
+		</v-navigation-drawer>
+	</div>
 </template>
 
 <script>
 export default {
-	head () {
+	data () {
 		return {
-			title: 'The Awesome Backend'
+			clipped: true,
+			drawer: false,
+			items: [
+				{ name: 'Home', to: '/' },
+			],
 		}
 	},
 	methods: {

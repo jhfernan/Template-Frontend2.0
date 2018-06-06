@@ -1,11 +1,17 @@
 <template>
-	<div class="container mt-5">
-		<div class="jumbotron text-center"  v-if="$store.state.user">
-			<h1 class="display-3">You have to be an admin to see this page</h1>
-			<h1>Welcome {{ $store.state.user.name }}</h1>
-			<p>your id is {{ $store.state.user.id }}</p>
-		</div>
-	</div>
+	<v-container>
+		<v-jumbotron color="grey lighten-2">
+			<v-container fill-height>
+				<v-layout align-center>
+					<v-flex class="px-5">
+						<h1 class="display-3">You have to be an admin to see this page</h1>
+						<v-divider class="my-3"></v-divider>
+						<v-btn color="primary" nuxt router to="/home">Back Home</v-btn>
+					</v-flex>
+				</v-layout>
+			</v-container>
+		</v-jumbotron>
+	</v-container>
 </template>
 
 <script>
