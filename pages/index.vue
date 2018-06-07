@@ -5,5 +5,12 @@
 </template>
 
 <script>
-
+export default {
+	head () {
+		return {
+			title: 'Welcome to Example Frontend',
+		}
+	},
+	middleware: 'loggedIn',
+}
 </script>
