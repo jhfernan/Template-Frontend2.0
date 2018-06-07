@@ -1,3 +1,4 @@
+const config = require('./app.config')
 
 module.exports = {
 	// Headers of the page
@@ -23,7 +24,7 @@ module.exports = {
 		['cookie-universal-nuxt', { alias: 'cookies' }],
 	],
 	axios: {
-		baseURL: 'http://localhost:8000',
+		baseURL: config.baseURL,
 		// credentials: true,
 		// progress: true,
 	},
