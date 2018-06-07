@@ -7,3 +7,5 @@ Admin Login is simply "admin" with the password "admin"
 Use "noadmin" with the password "noadmin" to login with a profile without admin privileges
 
 Check out he live version at [Heroku](https://example-cb-frontend.herokuapp.com/)
+
+_Note: It might take a second to login since it will need to "wake up" the api server_
