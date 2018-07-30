@@ -14,20 +14,24 @@ module.exports = {
 			{ rel: 'stylesheet', type: 'text/css', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' },
 		]
 	},
-	css: [
-		'@/assets/style/app.styl',
-	],
-	// Customize the progress bar color
-	loading: { color: '#3B8070' },
-	modules: [
-		'@nuxtjs/axios',
-		['cookie-universal-nuxt', { alias: 'cookies' }],
-	],
+
 	axios: {
 		baseURL: config.baseURL,
 		// credentials: true,
 		// progress: true,
 	},
+
+	css: [
+		'@/assets/style/app.styl',
+	],
+
+	// Customize the progress bar color
+	loading: { color: '#3B8070' },
+
+	modules: [
+		'@nuxtjs/axios',
+		['cookie-universal-nuxt', { alias: 'cookies' }],
+	],
 
 	plugins: [
 		'~/plugins/axios',
@@ -35,6 +39,7 @@ module.exports = {
 	],
 
 	router: { linkExactActiveClass: 'active', },
+
 	// Build configuration
 	build: {
 		vendor: [
