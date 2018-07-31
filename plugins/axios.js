@@ -9,6 +9,9 @@ export default function ({ $axios, app, store, redirect }) {
 	$axios.onResponseError(err => {
 		if (err.response.status === 401 || err.response.status === 403) {
 			store.dispatch('reset')
+		} else if (err.response.status === 403) {
+			store.dispatch('reset')
+			redirect('/login')
 		}
 	})
 }
