@@ -20,7 +20,6 @@ export const actions = {
 		if (req.headers.cookie) {
 			let token = app.$cookies.get('auth')
 			if (token) {
-				app.$axios.defaults.headers.common['Authorization'] = token
 				try {
 					let user = await app.$axios.$get('/api/authenticate')
 					commit('set_user', user)
@@ -60,7 +59,6 @@ export const actions = {
 
 	// Set Token
 	async setToken({ commit }, token) {
-		this.$axios.defaults.headers.common['Authorization'] = token
 		if (process.browser) {
 			this.$cookies.set('auth', token)
 		}

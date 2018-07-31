@@ -5,4 +5,10 @@ export default function ({ $axios, app, store, redirect }) {
 		}
 		console.log('Making request to ' + config.url)
 	})
+
+	$axios.onResponseError(err => {
+		if (err.response.status === 401 || err.response.status === 403) {
+			store.dispatch('reset')
+		}
+	})
 }
