@@ -20,12 +20,12 @@ export const actions = {
 		if (req.headers.cookie) {
 			let token = app.$cookies.get('auth')
 			if (token) {
-				this.$axios.defaults.headers.common['Authorization'] = token
+				app.$axios.defaults.headers.common['Authorization'] = token
 				try {
-					let user = await this.$axios.$get('/api/authenticate')
+					let user = await app.$axios.$get('/api/authenticate')
 					commit('set_user', user)
 				} catch (err) {
-					app.$cookies.remove('auth')
+					dispatch('reset')
 				}
 			}
 		}

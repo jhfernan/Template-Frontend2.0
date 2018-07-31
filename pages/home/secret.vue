@@ -11,11 +11,29 @@
 				</v-layout>
 			</v-container>
 		</v-jumbotron>
+
+		<v-card class="my-3">
+			<v-card-text>
+				<h1 class="title mb-2">All Users</h1>
+				<div :key="i" v-for="(user, i) in users">
+					<p>ID# {{ user.id }}: {{ user.name }}</p>
+				</div>
+			</v-card-text>
+		</v-card>
 	</v-container>
 </template>
 
 <script>
 export default {
 	middleware: 'adminRequired',
+	asyncData ({ app, error }) {
+		return app.$axios.$get('/api/v1/users')
+		.then(res => {
+			return { users: res }
+		})
+		.catch(err => {
+			error({ statusCode: err.status, message: err.message })
+		})
+	}
 }
 </script>

@@ -42,9 +42,6 @@ module.exports = {
 
 	// Build configuration
 	build: {
-		vendor: [
-			'~/plugins/vuetify.js'
-		],
 		// Run ESLint on save
 		extend (config, { isDev, isClient, isServer }) {
 			if (isDev && isClient) {
